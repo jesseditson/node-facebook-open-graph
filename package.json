@@ -1,0 +1,20 @@
+{
+  "author": "Jesse Ditson <jesse.ditson@gmail.com>",
+  "name": "facebook-open-graph",
+  "description": "Open graph actions made easier",
+  "version": "0.0.1",
+  "homepage": "https://github.com/jesseditson/node-facebook-open-graph",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jesseditson/node-facebook-open-graph.git"
+  },
+  "main": "opengraph.js",
+  "engines": {
+    "node": "0.6.x"
+  },
+  "dependencies": {
+    "request": "~2.9.202"
+  },
+  "devDependencies": {},
+  "optionalDependencies": {}
+}
