@@ -16,15 +16,25 @@ var graphUrl = 'https://graph.facebook.com',
 // ---
 
 // get a facebook url using some opengraph options
-var getOpenGraphUrl = function(namespace,user_token,action,objectName,object,callback){
-  var query = {access_token : user_token}
+var getOpenGraphUrl = function(user_id,namespace,access_token,action,objectName,object,callback){
+  // user_id is optional, use 'me' instead.
+  if(!callback && (typeof object == 'function' || typeof objectName == 'function')){
+    callback = object
+    object = objectName
+    objectName = action
+    action = access_token
+    access_token = namespace
+    namespace = user_id
+    user_id = "me"
+  }
+  var query = {access_token : access_token}
   if(objectName && object){
     query[objectName] = object
   } else {
     // object is optional, but our callback has moved
     callback = object
   }
-  var uri = graphUrl + '/me/' + namespace + ':' + action + "?" + querystring.stringify(query)
+  var uri = graphUrl + '/'+user_id+'/' + namespace + ':' + action + "?" + querystring.stringify(query)
   if(typeof callback === 'function'){
     callback(uri)
   } else {
