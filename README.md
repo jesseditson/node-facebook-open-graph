@@ -19,23 +19,25 @@ After that:
 
 **show actions:**
 
-    openGraph.show('some-users-access-token','action',function(err,response){
+    openGraph.show('some-user-id','some-access-token','action',function(err,response){
       // do stuff
     })
 
 **publish action:**
 
-    openGraph.publish('some-users-access-token','action','object','some-object-url',function(err,response){
+    openGraph.publish('some-user-id','some-access-token','action','object','some-object-url',function(err,response){
       // do stuff
     })
 
 **delete action:**
 
-    openGraph.delete('some-users-access-token','some-action-id',function(err,response){
+    openGraph.delete('some-access-token','some-action-id',function(err,response){
       // do stuff
     })
 
 In all of the above, `err` is a native javascript error or `null`, and response is a native javascript `object` (parsed response from FB). 
+
+You can use 'me' instead of a user, and provide their access token to publish to their own feed. Otherwise, provide an id, and either the users' access token or an app access token with the correct permissions.
 
 ## Bonus:
 

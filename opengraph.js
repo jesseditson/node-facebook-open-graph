@@ -17,16 +17,6 @@ var graphUrl = 'https://graph.facebook.com',
 
 // get a facebook url using some opengraph options
 var getOpenGraphUrl = function(user_id,namespace,access_token,action,objectName,object,callback){
-  // user_id is optional, use 'me' instead.
-  if(!callback && (typeof object == 'function' || typeof objectName == 'function')){
-    callback = object
-    object = objectName
-    objectName = action
-    action = access_token
-    access_token = namespace
-    namespace = user_id
-    user_id = "me"
-  }
   var query = {access_token : access_token}
   if(objectName && object){
     query[objectName] = object
@@ -64,17 +54,17 @@ var OpenGraph = module.exports = function(namespace){
 }
 
 // **Show**
-OpenGraph.prototype.show = function(user_token,action,callback){
-  var uri = getOpenGraphUrl(this.namespace,user_token,action)
+OpenGraph.prototype.show = function(user_id,access_token,action,callback){
+  var uri = getOpenGraphUrl(user_id,this.namespace,access_token,action)
   request.get({
     uri : uri
   },parseResponse.bind(this,callback))
 }
 
 // **Publish**
-OpenGraph.prototype.publish = function(user_token,action,objectName,object,callback){
-  var uri = getOpenGraphUrl(this.namespace,user_token,action),
-      form = { access_token : user_token }
+OpenGraph.prototype.publish = function(user_id,access_token,action,objectName,object,callback){
+  var uri = getOpenGraphUrl(user_id,this.namespace,access_token,action),
+      form = {}
   form[objectName] = object
   request.post({
     uri : uri,
@@ -83,8 +73,8 @@ OpenGraph.prototype.publish = function(user_token,action,objectName,object,callb
 }
 
 // **Delete**
-OpenGraph.prototype.delete = function(user_token,action_id){
-  var uri = graphUrl + '/{' + action_id + '}?access_token=' + user_token
+OpenGraph.prototype.delete = function(access_token,action_id){
+  var uri = graphUrl + '/{' + action_id + '}?access_token=' + access_token
   request.delete({
     uri : uri
   },parseResponse.bind(this,callback))
