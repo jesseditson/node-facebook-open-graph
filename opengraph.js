@@ -40,10 +40,11 @@ var parseResponse = function(callback,err,response){
   } else {
     try {
       var body = JSON.parse(response.body)
-      callback(null,body)
     } catch(e){
-      if(typeof callback === 'function') callback(new Error("Non-JSON response returned."),response.body)
+      err = new Error("Non-JSON response returned.")
+      var body = response.body
     }
+    callback(null,body)
   }
 }
 
