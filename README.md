@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/jesseditson/node-facebook-open-graph.png)](http://travis-ci.org/jesseditson/node-facebook-open-graph)
 node-facebook-open-graph
 ========================
 
