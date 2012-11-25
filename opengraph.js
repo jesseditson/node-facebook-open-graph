@@ -63,14 +63,21 @@ OpenGraph.prototype.show = function(user_id,access_token,action,callback){
 }
 
 // **Publish**
-OpenGraph.prototype.publish = function(user_id,access_token,action,objectName,object,callback){
+OpenGraph.prototype.publish = function(user_id,access_token,action,objectName,object,explicitlyShared,callback){
   var uri = getOpenGraphUrl(user_id,this.namespace,access_token,action),
-      form = {}
+      form = {},
+      callbackFn = callback || explicitlyShared // curried
+
+  if (callback && explicitlyShared === true) {
+    // https://developers.facebook.com/docs/technical-guides/opengraph/explicit-sharing/
+    form['fb:explicitly_shared'] = true
+  }
+
   form[objectName] = object
   request.post({
     uri : uri,
     form : form
-  },parseResponse.bind(this,callback))
+  },parseResponse.bind(this,callbackFn))
 }
 
 // **Delete**
