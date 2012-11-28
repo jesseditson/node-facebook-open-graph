@@ -2,7 +2,7 @@
   "author": "Jesse Ditson <jesse.ditson@gmail.com>",
   "name": "facebook-open-graph",
   "description": "Open graph actions made easier",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "homepage": "https://github.com/jesseditson/node-facebook-open-graph",
   "repository": {
     "type": "git",
