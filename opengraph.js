@@ -63,14 +63,17 @@ OpenGraph.prototype.show = function(user_id,access_token,action,callback){
 }
 
 // **Publish**
-OpenGraph.prototype.publish = function(user_id,access_token,action,objectName,object,explicitlyShared,callback){
+OpenGraph.prototype.publish = function(user_id,access_token,action,objectName,object,options,callback){
   var uri = getOpenGraphUrl(user_id,this.namespace,access_token,action),
       form = {},
-      callbackFn = callback || explicitlyShared // curried
+      callbackFn = callback || options
 
-  if (callback && explicitlyShared === true) {
+  if (callback && options === true) {
     // https://developers.facebook.com/docs/technical-guides/opengraph/explicit-sharing/
     form['fb:explicitly_shared'] = true
+  } else {
+    // use passed options as form for more customization
+    form = options
   }
 
   form[objectName] = object
