@@ -71,7 +71,7 @@ OpenGraph.prototype.publish = function(user_id,access_token,action,objectName,ob
   if (callback && options === true) {
     // https://developers.facebook.com/docs/technical-guides/opengraph/explicit-sharing/
     form['fb:explicitly_shared'] = true
-  } else {
+  } else if (options !== null && typeof options === 'object') {
     // use passed options as form for more customization
     form = options
   }
