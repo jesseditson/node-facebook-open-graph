@@ -39,6 +39,25 @@ In all of the above, `err` is a native javascript error or `null`, and response 
 
 You can use 'me' instead of a user, and provide their access token to publish to their own feed. Otherwise, provide an id, and either the users' access token or an app access token with the correct permissions.
 
+** Common Actions **
+
+Some facebook actions are "common", in that you'll need to use them instead of custom actions. These mostly are pretty specific, but this library currently supports the main two common actions:
+
+** Like **
+
+    openGraph.publish('some-user-id','some-access-token','like','<whatever>','url',function(err,response){
+      // stuff
+    })
+
+** Follow **
+
+    openGraph.publish('some-user-id','some-access-token','follow','<whatever>','url',function(err,response){
+      stuff
+    })
+
+The main difference for common actions is that they are not namespaced - these actions will be transformed to `og.likes` and `og.follows`, and instead of specifying an object name, the name is ignored and the url is sent instead.
+Through this library, usage can be identical to your custom actions, so that should make things easier.
+
 ## Bonus:
 
 don't like using the word "publish" or whatever? Do what you want, homie:

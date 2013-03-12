@@ -10,21 +10,33 @@ var request = require('request'),
 // Local Variables
 // ---
 var graphUrl = 'https://graph.facebook.com',
-    fb_access_token
+    fb_access_token,
+    fb_common_actions = {
+      'like' : 'og.likes',
+      'follow' : 'og.follows'
+    }
 
 // Helpers
 // ---
 
 // get a facebook url using some opengraph options
 var getOpenGraphUrl = function(user_id,namespace,access_token,action,objectName,object,callback){
-  var query = {access_token : access_token}
+  var query = {}
   if(objectName && object){
     query[objectName] = object
+    query[access_token] = access_token
   } else {
     // object is optional, but our callback has moved
     callback = object
   }
-  var uri = graphUrl + '/'+user_id+'/' + namespace + ':' + action + "?" + querystring.stringify(query)
+  var actionPath
+  if(fb_common_actions[action]){
+    actionPath = fb_common_actions[action]
+  } else {
+    actionPath = namespace + ':' + action
+  }
+  var uri = graphUrl + '/'+user_id+'/' + actionPath + "?" + querystring.stringify(query)
+  console.log(uri)
   if(typeof callback === 'function'){
     callback(uri)
   } else {
@@ -75,8 +87,12 @@ OpenGraph.prototype.publish = function(user_id,access_token,action,objectName,ob
     // use passed options as form for more customization
     form = options
   }
-
-  form[objectName] = object
+  form.access_token = access_token
+  if(fb_common_actions[action]){
+    form.object = object
+  } else {
+    form[objectName] = object
+  }
   request.post({
     uri : uri,
     form : form
