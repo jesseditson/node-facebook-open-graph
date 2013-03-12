@@ -87,7 +87,7 @@ OpenGraph.prototype.publish = function(user_id,access_token,action,objectName,ob
     form = options
   }
   form.access_token = access_token
-  if(fb_common_actions[action]){
+  if(action == 'like'){
     form.object = object
   } else {
     form[objectName] = object
