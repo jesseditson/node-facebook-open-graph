@@ -36,7 +36,6 @@ var getOpenGraphUrl = function(user_id,namespace,access_token,action,objectName,
     actionPath = namespace + ':' + action
   }
   var uri = graphUrl + '/'+user_id+'/' + actionPath + "?" + querystring.stringify(query)
-  console.log(uri)
   if(typeof callback === 'function'){
     callback(uri)
   } else {
