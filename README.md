@@ -25,7 +25,16 @@ After that:
 
 **publish action:**
 
-    openGraph.publish('some-user-id','some-access-token','action','object','some-object-url',function(err,response){
+    // enable fb:explicitly_shared
+    var options = true;
+
+    // ... or pass your own custom headers
+    options = {
+      'fb:explicitly_shared': true
+    };
+
+    // the options parameter may be omitted if you have nothing to put in there
+    openGraph.publish('some-user-id','some-access-token','action','object','some-object-url',options,function(err,response){
       // do stuff
     })
 
@@ -58,9 +67,15 @@ Some facebook actions are "common", in that you'll need to use them instead of c
 The main difference for common actions is that they are not namespaced - these actions will be transformed to `og.likes` and `og.follows`, and instead of specifying an object name, the name is ignored and the url is sent instead.
 Through this library, usage can be identical to your custom actions, so that should make things easier.
 
+## Support for fb:explicitly_shared
+
+Sending explicitly_shared indicates that a user has explicitly chosen to have their action posted to their Facebook wall, giving it a more prominent position.
+
+For more on this, see [How-To: Explicit Sharing](https://developers.facebook.com/docs/technical-guides/opengraph/explicit-sharing/)
+
 ## Bonus:
 
-don't like using the word "publish" or whatever? Do what you want, homie:
+Don't like using the word "publish" or whatever? Do what you want, homie:
 
     openGraph.alias('publish','BIRTH')
     openGraph.alias('delete','MURDER')
